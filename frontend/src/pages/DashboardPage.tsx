@@ -9,7 +9,6 @@ export const DashboardPage = () => {
 
   const snippets = useSelector((state: RootState) => state.snippet.snippets);
   //TODO: work on loading part
-  const loading = useSelector((state: RootState) => state.snippet.loading);
 
   useEffect(() => {
     dispatch(fetchSnippets());
