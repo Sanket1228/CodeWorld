@@ -3,7 +3,7 @@ import axios from "axios";
 import type { LoginRequest } from "../types/LoginRequest";
 import type { UserRequest } from "../types/UserRequest";
 
-const API_URL = "http://localhost:5000/api/auth";
+const API_URL = `${import.meta.env.VITE_API_END_POINT}/api/auth`;
 
 export const registerUser = createAsyncThunk(
   "auth/register",

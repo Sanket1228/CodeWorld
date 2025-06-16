@@ -3,7 +3,7 @@ import axios from "axios";
 import type { RootState } from "../store";
 import type { Snippet } from "../types/Snippet";
 
-const API_URL = "http://localhost:5000/api/snippets";
+const API_URL = `${import.meta.env.VITE_API_END_POINT}/api/snippets`;
 
 // Fetch snippets
 export const fetchSnippets = createAsyncThunk(
@@ -33,7 +33,7 @@ export const fetchUserSnippet = createAsyncThunk(
       };
 
       const res = await axios.get(
-        "http://localhost:5000/api/snippets/me",
+        `${import.meta.env.VITE_API_END_POINT}/api/snippets/me`,
         config
       );
       return res.data;
