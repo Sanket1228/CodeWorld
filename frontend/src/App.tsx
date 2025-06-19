@@ -18,9 +18,9 @@ function App() {
   }, [user]);
 
   return (
-    <div className="max-w-screen-lg bg-gray-100 w-full min-h-screen">
+    <div className="w-full min-h-screen bg-gray-100">
       <Navbar />
-      <div className="container max-w-screen-lg mx-auto px-4 py-6">
+      <div className="w-full max-w-screen-lg mx-auto px-4 py-6">
         <AppRoutes />
       </div>
     </div>

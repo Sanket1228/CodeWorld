@@ -10,6 +10,7 @@ const initialState: SnippetState = {
   snippets: [],
   loading: false,
   error: null,
+  selectedTab: "public",
 };
 
 const snippetSlice = createSlice({
@@ -20,6 +21,7 @@ const snippetSlice = createSlice({
     builder
       .addCase(fetchSnippets.pending, (state) => {
         state.loading = true;
+        state.selectedTab = "public";
       })
       .addCase(fetchSnippets.fulfilled, (state, action) => {
         state.loading = false;
@@ -34,6 +36,7 @@ const snippetSlice = createSlice({
       })
       .addCase(fetchUserSnippet.pending, (state) => {
         state.loading = true;
+        state.selectedTab = "self";
       })
       .addCase(fetchUserSnippet.fulfilled, (state, action) => {
         state.loading = false;

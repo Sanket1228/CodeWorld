@@ -14,8 +14,8 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white w-full shadow p-4 flex justify-between items-center">
-      <div className="text-xl font-bold text-blue-600 mx-4">CodeWorld</div>
+    <nav className="bg-white w-full shadow px-4 py-4 flex justify-between items-center sticky top-0 z-50">
+      <div className="text-xl font-bold text-blue-600">CodeWorld</div>
       <div className="space-x-4">
         <Link to="/" className="text-gray-700 hover:text-blue-600">
           Dashboard
@@ -39,7 +39,12 @@ export const Navbar = () => {
           </Link>
         </DisplayBox>
         <DisplayBox display={!!user}>
-          <button onClick={handleLogoutClick}>Logout</button>
+          <button
+            onClick={handleLogoutClick}
+            className="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:text-blue-600 hover:bg-transparent hover:bg-blue-700 transition"
+          >
+            Logout
+          </button>
         </DisplayBox>
       </div>
     </nav>
