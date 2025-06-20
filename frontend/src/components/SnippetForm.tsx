@@ -19,6 +19,8 @@ export const SnippetForm = () => {
 
   const user = useSelector((state: RootState) => state.auth.user);
 
+  const loading = useSelector((state: RootState) => state.snippet.loading);
+
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
     setSnippet({ ...snippet, [name]: type === "checkbox" ? checked : value });
@@ -73,77 +75,151 @@ export const SnippetForm = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-2xl mx-auto bg-white p-6 rounded shadow mt-10"
+      className="w-full max-w-6xl mx-auto bg-white p-8 rounded-2xl shadow-lg mt-12 space-y-6"
     >
-      <h2 className="text-xl font-bold mb-4">Create Snippet</h2>
+      <h2 className="text-2xl font-semibold text-gray-800">
+        📝 Create a New Snippet
+      </h2>
 
-      <input
-        className="w-full mb-3 border px-3 py-2 rounded"
-        placeholder="Title"
-        name="title"
-        value={snippet.title}
-        onChange={handleChange}
-      />
+      {/* Title Input */}
+      <div>
+        <label
+          className="block text-sm font-medium text-gray-700 mb-1"
+          htmlFor="title"
+        >
+          Title
+        </label>
+        <input
+          id="title"
+          name="title"
+          type="text"
+          value={snippet.title}
+          onChange={handleChange}
+          placeholder="Enter snippet title"
+          className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+        />
+      </div>
 
-      {/* <textarea
-        className="w-full mb-3 border px-3 py-2 rounded"
-        placeholder="Code"
-        name="code"
-        onChange={handleChange}
-        rows={6}
-      /> */}
+      {/* Language Dropdown */}
+      <div>
+        <label
+          className="block text-sm font-medium text-gray-700 mb-1"
+          htmlFor="language"
+        >
+          Language
+        </label>
+        <select
+          id="language"
+          name="language"
+          value={snippet.language}
+          onChange={handleDropdownChange}
+          className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+        >
+          <option value="javascript">JavaScript</option>
+          <option value="typescript">TypeScript</option>
+          <option value="python">Python</option>
+        </select>
+      </div>
 
-      <select
-        className="w-full mb-3 border px-3 py-2 rounded"
-        name="language"
-        value={snippet.language}
-        onChange={handleDropdownChange}
-      >
-        <option value="javascript">JavaScript</option>
-        <option value="typescript">TypeScript</option>
-        <option value="python">Python</option>
-      </select>
+      {/* Code Editor */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Code
+        </label>
+        <div className="border border-gray-300 rounded-lg overflow-hidden">
+          <CodeEditor langauge={snippet.language} onChange={handleCodeChange} />
+        </div>
+      </div>
 
-      <CodeEditor langauge={snippet.language} onChange={handleCodeChange} />
+      {/* AI Suggestion */}
+      <div className="flex items-center gap-4">
+        <button
+          type="button"
+          onClick={getAISuggestion}
+          className="flex items-center gap-2 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition"
+        >
+          💡 Suggest with AI
+        </button>
+        {loadingAI && (
+          <p className="text-sm text-gray-500">Getting AI suggestion...</p>
+        )}
+      </div>
 
-      <button
-        type="button"
-        onClick={getAISuggestion}
-        className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 m-2"
-      >
-        💡 Suggest with AI
-      </button>
-
-      {loadingAI && (
-        <p className="text-sm text-gray-500 mt-2">Getting AI suggestion...</p>
-      )}
       {suggestion && (
-        <div className="mt-4 bg-yellow-100 text-sm p-3 rounded border border-yellow-300">
-          <strong>AI Suggestion: (Mock Suggestion)</strong>
-          <p>{suggestion}</p>
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg">
+          <p className="font-medium text-yellow-700">💡 AI Suggestion:</p>
+          <p className="text-sm text-yellow-800 mt-1">{suggestion}</p>
         </div>
       )}
 
-      <input
-        className="w-full mb-3 border px-3 py-2 rounded"
-        placeholder="Tags (comma separated)"
-        name="tags"
-        value={snippet.tags}
-        onChange={handleChange}
-      />
-
-      <label className="flex items-center mb-4">
+      {/* Tags */}
+      <div>
+        <label
+          className="block text-sm font-medium text-gray-700 mb-1"
+          htmlFor="tags"
+        >
+          Tags
+        </label>
         <input
-          type="checkbox"
-          name="isPublic"
+          id="tags"
+          name="tags"
+          type="text"
+          value={snippet.tags}
           onChange={handleChange}
-          className="mr-2"
+          placeholder="e.g. react, hooks, fetch"
+          className="w-full border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
-        Make Public
-      </label>
+      </div>
 
-      <button className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
-        Submit Snippet
+      {/* Public Checkbox */}
+      <div className="flex items-center">
+        <input
+          id="isPublic"
+          name="isPublic"
+          type="checkbox"
+          onChange={handleChange}
+          className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+        />
+        <label htmlFor="isPublic" className="ml-2 block text-sm text-gray-700">
+          Make Public
+        </label>
+      </div>
+
+      {/* Submit Button */}
+      <button
+        type="submit"
+        disabled={loading}
+        className={`w-full flex justify-center items-center gap-2 bg-green-600 text-white font-medium py-2 rounded-lg hover:bg-green-700 transition ${
+          loading ? "opacity-70 cursor-not-allowed" : ""
+        }`}
+      >
+        {loading ? (
+          <>
+            <svg
+              className="animate-spin h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.372 0 0 5.372 0 12h4z"
+              ></path>
+            </svg>
+            Submitting...
+          </>
+        ) : (
+          "🚀 Submit Snippet"
+        )}
       </button>
     </form>
   );

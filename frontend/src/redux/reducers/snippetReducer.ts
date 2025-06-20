@@ -31,8 +31,16 @@ const snippetSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+      .addCase(createSnippet.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(createSnippet.fulfilled, (state, action) => {
+        state.loading = false;
         state.snippets.push(action.payload);
+      })
+      .addCase(createSnippet.rejected, (state, action: any) => {
+        state.loading = false;
+        state.error = action.payload;
       })
       .addCase(fetchUserSnippet.pending, (state) => {
         state.loading = true;
