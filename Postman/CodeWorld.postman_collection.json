@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "cf4c400f-eec5-497a-9326-8fe0dee734d1",
+		"name": "CodeWorld Deployed",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "10809535"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sanket\",\r\n    \"email\": \"sanket@example.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://codeworld-backend-qhc8.onrender.com/api/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"console.log(response.token);\r",
+									"if (response.token) {\r",
+									"  // Save token to environment variable\r",
+									"  pm.environment.set(\"token\", response.token);\r",
+									"  console.log(\"Token saved to environment\");\r",
+									"} else {\r",
+									"  console.warn(\"Token not found in response\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"sanket@example.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "https://codeworld-backend-qhc8.onrender.com/api/auth/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Snippet",
+			"item": [
+				{
+					"name": "Get Snippets",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGFjMjc3YmI5Zjk3ODc5MzQ0MDIwNyIsImlhdCI6MTc0OTczMDc4NiwiZXhwIjoxNzUwMzM1NTg2fQ.7uW686uu_xgFF51PkrtWB5Sqbmnliusw_TFALsDu2L8"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "https://codeworld-backend-qhc8.onrender.com/api/snippets"
+					},
+					"response": []
+				},
+				{
+					"name": "Post Snippet",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGFjMjc3YmI5Zjk3ODc5MzQ0MDIwNyIsImlhdCI6MTc0OTczMDc4NiwiZXhwIjoxNzUwMzM1NTg2fQ.7uW686uu_xgFF51PkrtWB5Sqbmnliusw_TFALsDu2L8"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"url": "https://codeworld-backend-qhc8.onrender.com/api/snippets"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "https://codeworld-backend-qhc8.onrender.com/health"
+			},
+			"response": []
+		}
+	]
+}
