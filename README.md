@@ -51,14 +51,14 @@ A full-stack web application for managing, editing, and sharing code snippets se
 
 | Login Page                        | Snippet Form                           | Snippet List                           |
 | --------------------------------- | -------------------------------------- | -------------------------------------- |
-| ![Login](./screenshots/login.png) | ![Form](./screenshots/snippetForm.png) | ![List](./screenshots/snippetList.png) |
+| ![Login](./ScreenShots/login.png) | ![Form](./ScreenShots/snippetForm.png) | ![List](./ScreenShots/snippetList.png) |
 
 ---
 
 ## 🔗 Live Links
 
 - 🔗 **Frontend (UI)**: [https://codeworld-m8ds.onrender.com/](https://codeworld-m8ds.onrender.com/)
-- 🔗 **Backend API Docs (Postman)**: [Postman Collection JSON](./postman/CodeWorld.postman_collection.json)
+- 🔗 **Backend API Docs (Postman)**: [Postman Collection JSON](./Postman/CodeWorld.postman_collection.json)
 
 ---
 
