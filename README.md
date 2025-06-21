@@ -49,11 +49,9 @@ A full-stack web application for managing, editing, and sharing code snippets se
 
 ## 📸 UI Screenshots
 
-| Login Page                        | Snippet Form                             | Snippet List                           |
-| --------------------------------- | ---------------------------------------- | -------------------------------------- |
-| ![Login](./screenshots/login.png) | ![Editor](./screenshots/snippetForm.png) | ![List](./screenshots/snippetList.png) |
-
-> ℹ️ Place your images in a `screenshots/` folder within the repo.
+| Login Page                        | Snippet Form                           | Snippet List                           |
+| --------------------------------- | -------------------------------------- | -------------------------------------- |
+| ![Login](./screenshots/login.png) | ![Form](./screenshots/snippetForm.png) | ![List](./screenshots/snippetList.png) |
 
 ---
 
